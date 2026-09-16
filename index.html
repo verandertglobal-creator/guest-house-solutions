@@ -3,193 +3,254 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Latsky Multimedia | Portfolio & Solutions</title>
+  <title>Latsky Multimedia | Brand Films, Digital Portals & Social Strategy</title>
+  
+  <!-- Modern Font & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --primary: #2b5876;
-      --secondary: #4e4376;
-      --accent: #00b4db;
-      --dark: #1e293b;
-      --light: #f8fafc;
-      --white: #ffffff;
-      --border: #e2e8f0;
-      --text-muted: #64748b;
+      --bg-dark: #0a0d14;
+      --card-bg: rgba(18, 24, 38, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-purple: #7f00ff;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --glass-glow: rgba(0, 242, 254, 0.12);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
-      background-color: var(--light);
-      color: var(--dark);
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(79, 172, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(127, 0, 255, 0.08) 0%, transparent 40%);
+      color: var(--text-main);
       line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
+    /* Hero Header */
     header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: var(--white);
+      padding: 80px 0 40px;
       text-align: center;
-      padding: 60px 20px;
+      position: relative;
+    }
+
+    .brand-tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
     }
 
     header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
     }
 
-    .portfolio-section {
-      padding: 60px 0;
+    /* Section & Cards */
+    .portfolio-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding: 40px 0 80px;
     }
 
-    .bg-alt {
-      background-color: #edf2f7;
-    }
-
-    .project-card {
-      background: var(--white);
-      border-radius: 12px;
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
       padding: 40px;
-      border: 1px solid var(--border);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.03);
-      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
-    .project-header {
+    .glass-card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--glass-glow);
+      transform: translateY(-2px);
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      color: var(--accent-cyan);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 30px;
       margin-bottom: 20px;
     }
 
-    .badge {
-      display: inline-block;
-      background: rgba(0, 180, 219, 0.15);
-      color: var(--primary);
-      font-size: 0.8rem;
+    .glass-card h2 {
+      font-size: 2rem;
       font-weight: 700;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
+      color: #ffffff;
     }
 
-    .project-card h2 {
-      font-size: 1.8rem;
-      color: var(--primary);
-    }
-
-    .project-description {
+    .glass-card p.description {
       font-size: 1.05rem;
-      color: var(--dark);
-      margin-bottom: 24px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
     }
 
-    .project-features {
+    /* Features List */
+    .feature-list {
       list-style: none;
-      margin-bottom: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
     }
 
-    .project-features li {
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
+    .feature-list li {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    /* Button System & Responsive Placement */
-    .project-actions {
+    /* Value Pillars */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 28px 0;
+    }
+
+    .pillar-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .pillar-box h3 {
+      font-size: 1.1rem;
+      color: var(--accent-blue);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pillar-box p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Action Buttons Area */
+    .card-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 30px;
+      gap: 16px;
+      margin-top: 12px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 24px;
-      border-radius: 8px;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 0.95rem;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.25s ease;
       cursor: pointer;
     }
 
     .btn-primary {
-      background: var(--primary);
-      color: var(--white);
-      border: 2px solid var(--primary);
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #040810;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
     }
 
     .btn-primary:hover {
-      background: #1d3e54;
-      border-color: #1d3e54;
+      box-shadow: 0 12px 28px rgba(0, 242, 254, 0.4);
+      transform: translateY(-2px);
     }
 
     .btn-secondary {
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid var(--primary);
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .btn-secondary:hover {
-      background: var(--primary);
-      color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
     }
 
-    /* Pillars Grid for Social Management */
-    .value-pillars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin: 25px 0;
-    }
-
-    .pillar {
-      background: var(--light);
+    /* Sub-Info Box */
+    .info-target {
+      margin-top: 24px;
       padding: 20px;
+      background: rgba(0, 242, 254, 0.03);
+      border-left: 3px solid var(--accent-cyan);
       border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    .pillar h3 {
-      font-size: 1.1rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    .pillar p {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
     }
 
-    /* Section anchors */
-    .info-box {
-      background: #e0f2fe;
-      border-left: 4px solid var(--accent);
-      padding: 20px;
-      border-radius: 4px;
-      margin-top: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .project-actions {
-        flex-direction: column;
-      }
-      .btn {
-        width: 100%;
-      }
+    @media (max-width: 640px) {
+      header h1 { font-size: 2.1rem; }
+      .glass-card { padding: 24px; }
+      .card-actions { flex-direction: column; }
+      .btn { width: 100%; }
     }
   </style>
 </head>
@@ -197,33 +258,32 @@
 
   <header>
     <div class="container">
-      <h1>Latsky Multimedia</h1>
-      <p>Digital Solutions, Guest Experiences & Hospitality Content Strategy</p>
+      <span class="brand-tag">Latsky Multimedia</span>
+      <h1>Cinematic Media & Digital Portals</h1>
+      <p>Elevating boutique stays, hospitality brands, and commercial experiences across Cape Town and beyond.</p>
     </div>
   </header>
 
-  <main class="container portfolio-section">
+  <main class="container portfolio-grid">
 
-    <!-- 1. Modern Guest House Portal & Guidebook Section -->
-    <section id="guest-house-portal" class="project-card">
-      <div class="project-header">
-        <span class="badge">Interactive Web Application</span>
-        <h2>The Modern Guest House Portal & Guidebook</h2>
-      </div>
+    <!-- 1. GUEST HOUSE PORTAL SECTION (BOTH BUTTONS RESTORED) -->
+    <section id="guest-house-portal" class="glass-card">
+      <span class="card-badge">⚡ Interactive Web Application</span>
+      <h2>The Modern Guest House Portal & Guidebook</h2>
       
-      <p class="project-description">
-        A location-aware, Progressive Web App (PWA) designed specifically for boutique guest houses and luxury holiday stays. Streamlines guest check-ins, provides real-time local updates, 7-day weather, and quick utility requests—all without requiring an app store download.
+      <p class="description">
+        A location-aware Progressive Web App (PWA) built specifically for boutique guest houses and luxury stays. Streamlines digital check-ins, provides real-time local updates, 7-day weather, and quick utility requests—all without requiring an app store download.
       </p>
 
-      <ul class="project-features">
-        <li>⚡ <strong>Automated Check-In:</strong> Digital timestamp logging and keyless entry details.</li>
-        <li>☀️ <strong>Live Updates:</strong> 7-day local weather forecasts & curated event tracking.</li>
-        <li>🛎️ <strong>Service Requests:</strong> One-tap housekeeping and breakfast ordering system.</li>
-        <li>📶 <strong>Quick Access:</strong> One-click Wi-Fi connection & emergency contact shortcuts.</li>
+      <ul class="feature-list">
+        <li>⚡ <strong>Automated Check-In:</strong> Keyless entry & digital logger</li>
+        <li>☀️ <strong>Live Updates:</strong> 7-day local weather & event tracking</li>
+        <li>🛎️ <strong>Service Requests:</strong> Housekeeping & breakfast ordering</li>
+        <li>📶 <strong>Quick Access:</strong> One-tap Wi-Fi & emergency contacts</li>
       </ul>
 
-      <!-- Both Buttons Restored Here -->
-      <div class="project-actions">
+      <!-- BOTH BUTTONS RESTORED HERE -->
+      <div class="card-actions">
         <a href="#guest-house-widget" class="btn btn-secondary">
           ℹ️ View Widget Info & Specs
         </a>
@@ -231,50 +291,39 @@
           ⚡ Test Live Interactive Widget
         </a>
       </div>
-    </section>
 
-    <!-- 2. Detailed Widget Spec target block -->
-    <section id="guest-house-widget" class="project-card bg-alt">
-      <div class="project-header">
-        <span class="badge">System Specifications</span>
-        <h2>Guest House Portal Widget Information</h2>
-      </div>
-      <p class="project-description">
-        The widget is engineered to integrate into any property site or run standalone on dedicated guest tablets. It operates on an offline-first service worker architecture to preserve access even during network interruptions.
-      </p>
-      <div class="info-box">
-        <strong>Technical Specs:</strong> Progressive Web App (PWA) framework, Dynamic API polling for weather data, custom modal triggers for guest concierge interactions, zero app store installation requirement.
+      <!-- Widget Info Spec Anchor -->
+      <div id="guest-house-widget" class="info-target">
+        <strong>Widget Architecture & Integration:</strong> Runs standalone or embedded on guest tablets. Built with offline-first PWA caching, dynamic local weather API integration, and keyless concierge request modules.
       </div>
     </section>
 
-    <!-- 3. Why Accommodations Need Dedicated Social Management Section -->
-    <section id="social-management" class="project-card">
-      <div class="project-header">
-        <span class="badge">Social Media & Content Strategy</span>
-        <h2>Why Accommodations Need Dedicated Social Management</h2>
-      </div>
+    <!-- 2. WHY ACCOMMODATIONS NEED DEDICATED SOCIAL MANAGEMENT SECTION -->
+    <section id="social-management" class="glass-card">
+      <span class="card-badge">🎬 Content Strategy & Management</span>
+      <h2>Why Accommodations Need Dedicated Social Management</h2>
 
-      <p class="project-description">
-        Guests buy into an experience before they ever book a room. Generic posts don't capture the atmosphere, local charm, or luxury amenities that turn scrollers into paying guests. Dedicated social management handles your visual storytelling, short-form reels, and engagement so your calendar stays booked year-round.
+      <p class="description">
+        Guests buy into an experience before they ever book a room. Generic posts don't capture the atmosphere, local charm, or luxury amenities that turn scrollers into paying guests. Dedicated social management handles your visual storytelling, short-form reels, and guest engagement so your calendar stays booked year-round.
       </p>
 
-      <div class="value-pillars">
-        <div class="pillar">
+      <div class="pillars-grid">
+        <div class="pillar-box">
           <h3>📸 Visual Storytelling</h3>
-          <p>High-quality reels, interior spotlights, and video coverage showcasing your property's best angles.</p>
+          <p>High-converting reels, interior spotlights, and drone footage showcasing your property's best assets.</p>
         </div>
-        <div class="pillar">
-          <h3>💬 Direct Booking Conversion</h3>
-          <p>Strategic calls-to-action and message management that turn inquiries into direct website bookings.</p>
+        <div class="pillar-box">
+          <h3>💬 Direct Booking Funnels</h3>
+          <p>Strategic calls-to-action and DM management turning social inquiry traffic directly into web bookings.</p>
         </div>
-        <div class="pillar">
-          <h3>🗓️ Consistent Local Presence</h3>
-          <p>Highlighting nearby attractions, seasonal offers, and guest testimonials without pulling focus from daily operations.</p>
+        <div class="pillar-box">
+          <h3>🗓️ Local Atmosphere</h3>
+          <p>Highlighting nearby attractions, seasonal stays, and guest reviews without taking time from daily hosting operations.</p>
         </div>
       </div>
 
-      <!-- Button directing to the simplified pricing breakdown page -->
-      <div class="project-actions">
+      <!-- ACTION BUTTON LINKING TO PRICING PAGE -->
+      <div class="card-actions">
         <a href="social-media-pricing.html" class="btn btn-primary">
           📊 View Simple Content Management Pricing
         </a>
