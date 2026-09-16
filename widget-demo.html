@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Guest House Portal | Latsky Multimedia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Interactive Guest House Portal | Yzerfontein</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0F172A;
@@ -40,15 +40,63 @@
             border-radius: 24px;
             padding: 1.5rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
         }
 
-        .header {
-            text-align: center;
+        /* Hero Accommodation Banner */
+        .hero-banner {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
             margin-bottom: 1.25rem;
+            padding: 2.5rem 1rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.92) 100%),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
         }
 
-        .header h1 { font-size: 1.5rem; font-weight: 700; color: #FFF; }
-        .header p { font-size: 0.85rem; color: var(--text-muted); }
+        .hero-banner .badge {
+            display: inline-block;
+            background: rgba(217, 119, 6, 0.3);
+            border: 1px solid var(--accent);
+            color: #FDBA74;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFF;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+            letter-spacing: 0.5px;
+        }
+
+        .hero-banner p {
+            font-size: 0.85rem;
+            color: #E2E8F0;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+            margin-top: 0.2rem;
+        }
+
+        /* Standard Event Banner Image (Same aspect ratio as header) */
+        .event-detail-banner {
+            width: 100%;
+            height: 160px;
+            border-radius: 14px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
 
         /* Quick Check-In Bar */
         .checkin-bar {
@@ -155,6 +203,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .list-card:hover {
+            border-color: var(--accent);
+            background: rgba(30, 41, 59, 0.9);
         }
 
         .badge-promoted {
@@ -204,10 +259,11 @@
 <body>
 
     <div class="widget-container">
-        <!-- Header -->
-        <div class="header">
-            <h1>Seaside Villa Portal</h1>
-            <p>Welcome to Cape Town! Your digital companion.</p>
+        <!-- Hero Accommodation Banner -->
+        <div class="hero-banner">
+            <span class="badge">West Coast Luxury</span>
+            <h1>Yzerfontein Haven</h1>
+            <p>Welcome to Yzerfontein! Your West Coast digital portal.</p>
         </div>
 
         <!-- Check-In Banner -->
@@ -267,12 +323,12 @@
 
         <!-- TAB 2: 7-DAY WEATHER -->
         <div class="tab-content" id="weather-tab">
-            <div id="weatherList">Loading 7-Day Forecast...</div>
+            <div id="weatherList">Loading Yzerfontein Forecast...</div>
         </div>
 
         <!-- TAB 3: LOCAL EVENTS & PROMOTIONS -->
         <div class="tab-content" id="events-tab">
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">Showing upcoming events for the next 7 days in Cape Town:</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">Select an option below for Yzerfontein & surrounds:</p>
             <div id="eventsList"></div>
         </div>
 
@@ -287,15 +343,77 @@
             <h3 id="modalTitle" style="margin-bottom:1rem;">Service Request</h3>
             <div id="modalBody"></div>
             <button class="btn-submit" id="modalSubmitBtn" onclick="submitRequest()">Submit</button>
-            <button style="background:transparent; border:none; color:var(--text-muted); width:100%; margin-top:0.6rem; cursor:pointer;" onclick="closeModal()">Cancel</button>
+            <button style="background:transparent; border:none; color:var(--text-muted); width:100%; margin-top:0.6rem; cursor:pointer;" onclick="closeModal()">Close</button>
         </div>
     </div>
 
     <script>
-        // Direct WhatsApp Contact
         const HOST_PHONE = "0027828215975";
 
-        // Tab Switcher
+        // Yzerfontein Specific Attractions & Events Dataset
+        const eventData = [
+            {
+                id: 0,
+                title: "16 Mile Beach Coastal Walk",
+                spot: "16 Mile Beach, Yzerfontein",
+                promoted: true,
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+                desc: "Walk South Africa's longest uninterrupted sandy beach stretching all the way to the West Coast National Park boundary.",
+                address: "Main Beach Access, Villa Rd, Yzerfontein, 7351",
+                time: "Open Daily • Sunrise to Sunset"
+            },
+            {
+                id: 1,
+                title: "Strandkombuis Seafood Feast",
+                spot: "Yzerfontein Oceanfront",
+                promoted: true,
+                image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+                desc: "Famous open-air traditional West Coast buffet overlooking the dunes, featuring fresh linefish, snoek, and braai breads.",
+                address: "R315, Yzerfontein, 7351",
+                time: "Sundays Lunch: 12:00 – 15:30"
+            },
+            {
+                id: 2,
+                title: "Buffelsfontein Game Reserve Safari",
+                spot: "R27 West Coast Highway",
+                promoted: false,
+                image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80",
+                desc: "Guided 4x4 game drives to view Lion, Cheetah, Rhino, Buffalo, and Giraffe just 15 minutes outside Yzerfontein.",
+                address: "R27 Coast Road, Yzerfontein District, 7351",
+                time: "Drives at 09:00 & 14:00 Daily"
+            },
+            {
+                id: 3,
+                title: "Schaapeiland Coastal Trail",
+                spot: "Yzerfontein Main Harbor",
+                promoted: false,
+                image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80",
+                desc: "2km scenic coastal footpath starting from the main harbor towards Schaapeiland with Atlantic views and rock pools.",
+                address: "Yzerfontein Harbor, Lutsenburg Rd, 7351",
+                time: "Best at Low Tide • Daylight Hours"
+            },
+            {
+                id: 4,
+                title: "Dassen Island Whale & Seabird Spotting",
+                spot: "Yzerfontein Point",
+                promoted: false,
+                image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+                desc: "Lookout point for Southern Right Whales (July to November) and views towards Dassen Island Lighthouse offshore.",
+                address: "Grotto St Lookout Point, Yzerfontein, 7351",
+                time: "Accessible 24/7"
+            },
+            {
+                id: 5,
+                title: "West Coast Fossil Park Tour",
+                spot: "Langebaan / R27",
+                promoted: true,
+                image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+                desc: "Discover 5-million-year-old fossils of sabre-toothed cats and short-necked giraffes on an underground site tour.",
+                address: "R45, Langebaan Road (off R27), 7357",
+                time: "Tuesday – Sunday, 09:00 – 15:00"
+            }
+        ];
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -303,7 +421,6 @@
             event.target.classList.add('active');
         }
 
-        // Check-in Timestamp Recorder
         function processCheckIn() {
             const now = new Date();
             const timeString = now.toLocaleDateString() + " at " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -321,14 +438,13 @@
             }
         }
 
-        // Initialize Check-In State
         const savedCheckIn = localStorage.getItem('checkinTimestamp');
         if(savedCheckIn) updateCheckInUI(savedCheckIn);
 
-        // Fetch Live 7-Day Weather (Open-Meteo API)
+        // Fetch Live Weather specifically for Yzerfontein Coordinates (-33.3426, 18.1611)
         async function load7DayWeather() {
             try {
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-33.9249&longitude=18.4241&daily=weathercode,temperature_2m_max,temperature_2m_min,windspeed_10m_max&timezone=Africa%2FJohannesburg');
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-33.3426&longitude=18.1611&daily=weathercode,temperature_2m_max,temperature_2m_min,windspeed_10m_max&timezone=Africa%2FJohannesburg');
                 const data = await res.json();
                 
                 let html = '';
@@ -346,7 +462,7 @@
                     if(code > 50) icon = "🌧️ Rain";
 
                     html += `
-                        <div class="list-card">
+                        <div class="list-card" style="cursor:default;">
                             <div>
                                 <strong>${dayName}</strong><br>
                                 <span style="font-size:0.75rem; color:var(--text-muted);">${icon}</span>
@@ -365,32 +481,21 @@
         }
         load7DayWeather();
 
-        // Populate 7-Day Events with Sponsored/Promoted Monetization Slots
         function load7DayEvents() {
             const today = new Date();
-            const events = [
-                { offset: 0, title: "Kirstenbosch Summer Concert", spot: "Kirstenbosch Gardens", promoted: true },
-                { offset: 1, title: "V&A Waterfront Food Market", spot: "V&A Waterfront", promoted: false },
-                { offset: 2, title: "Sunset Ocean Cruise & Wine", spot: "Cape Town Harbor", promoted: true },
-                { offset: 3, title: "Camps Bay Sunset Artisanal Market", spot: "Camps Bay Strip", promoted: false },
-                { offset: 4, title: "Constantia Wine Valley Tour", spot: "Constantia Estate", promoted: false },
-                { offset: 5, title: "Oranjezicht City Farm Market", spot: "Granger Bay", promoted: true },
-                { offset: 6, title: "Table Mountain Cableway Sunset", spot: "Table Mountain", promoted: false }
-            ];
-
             let html = '';
-            events.forEach(ev => {
+            eventData.forEach((ev, index) => {
                 const evDate = new Date();
-                evDate.setDate(today.getDate() + ev.offset);
+                evDate.setDate(today.getDate() + index);
                 const dateStr = evDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
                 
                 html += `
-                    <div class="list-card">
+                    <div class="list-card" onclick="openEventDetail(${ev.id})">
                         <div>
                             <strong>${ev.title}</strong> ${ev.promoted ? '<span class="badge-promoted">Featured</span>' : ''}<br>
                             <span style="font-size:0.75rem; color:var(--text-muted);">📍 ${ev.spot} • ${dateStr}</span>
                         </div>
-                        <button style="background:var(--accent); border:none; color:#fff; padding:0.3rem 0.6rem; border-radius:6px; font-size:0.7rem; cursor:pointer;" onclick="alert('Info sent to host')">Info</button>
+                        <span style="color:var(--accent); font-weight:700; font-size:0.9rem;">→</span>
                     </div>
                 `;
             });
@@ -398,16 +503,38 @@
         }
         load7DayEvents();
 
-        // Open WhatsApp Direct
+        function openEventDetail(eventId) {
+            const ev = eventData.find(e => e.id === eventId);
+            if(!ev) return;
+
+            const modal = document.getElementById('actionModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            const submitBtn = document.getElementById('modalSubmitBtn');
+
+            title.innerText = ev.title;
+            submitBtn.style.display = "none";
+
+            body.innerHTML = `
+                <img src="${ev.image}" class="event-detail-banner" alt="${ev.title}">
+                <p style="font-size:0.85rem; color:var(--text-main); margin-bottom:0.8rem; line-height:1.4;">${ev.desc}</p>
+                <div style="background:#0F172A; padding:0.8rem; border-radius:10px; border:1px solid var(--border); font-size:0.78rem;">
+                    <p style="margin-bottom:0.4rem;">📍 <strong>Address:</strong> ${ev.address}</p>
+                    <p>🕒 <strong>Hours / Schedule:</strong> ${ev.time}</p>
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+        }
+
         function openWhatsApp() {
-            window.open(`https://wa.me/${HOST_PHONE}?text=Hi%20Johann,%20I%20am%20a%20guest%20staying%20at%20the%20property.`, "_blank");
+            window.open(`https://wa.me/${HOST_PHONE}?text=Hi%20Johann,%20I%20am%20a%20guest%20staying%20in%20Yzerfontein.`, "_blank");
         }
 
         function openGateDemo() {
             alert("Remootio Gate Command Sent!\nIn production, this opens the physical gate via encrypted webhook.");
         }
 
-        // Modal Handler
         function openModal(type) {
             const modal = document.getElementById('actionModal');
             const title = document.getElementById('modalTitle');
@@ -419,7 +546,7 @@
                 title.innerText = "Wi-Fi Credentials";
                 body.innerHTML = `
                     <div style="background:#0F172A; padding:1rem; border-radius:10px; border:1px solid var(--border); margin-bottom:1rem;">
-                        <p style="font-size:0.85rem; margin-bottom:0.4rem;">Network: <strong>Seaside_Guest_5G</strong></p>
+                        <p style="font-size:0.85rem; margin-bottom:0.4rem;">Network: <strong>Yzerfontein_Guest_5G</strong></p>
                         <p style="font-size:0.85rem;">Password: <strong id="wifiPass">Welcome2026!</strong></p>
                     </div>
                     <button class="btn-submit" onclick="copyWifi()">📋 Copy Password to Clipboard</button>
@@ -436,7 +563,7 @@
             } else if(type === 'breakfast') {
                 title.innerText = "Order Breakfast";
                 body.innerHTML = `
-                    <select id="field1"><option>Full English Breakfast</option><option>Continental Platter</option><option>Vegan Breakfast Bowl</option></select>
+                    <select id="field1"><option>West Coast Full Breakfast</option><option>Continental Platter</option><option>Vegan Breakfast Bowl</option></select>
                     <input type="time" value="08:30">
                 `;
             } else if(type === 'housekeeping') {
@@ -444,7 +571,7 @@
                 body.innerHTML = `<select><option>Fresh Towels</option><option>Full Room Cleaning</option><option>Extra Pillows</option></select>`;
             } else if(type === 'loadshedding') {
                 title.innerText = "Power & Backup Schedule";
-                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Status: <strong>Grid Active (Stage 0)</strong><br>Inverter Backup active for Wi-Fi and Lights.</p>`;
+                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Yzerfontein Substation: <strong>Grid Active (Stage 0)</strong><br>Inverter Backup active for Wi-Fi and Lights.</p>`;
                 submitBtn.style.display = "none";
             } else if(type === 'issue') {
                 title.innerText = "Report Maintenance Issue";
@@ -455,11 +582,11 @@
                 submitBtn.style.display = "none";
             } else if(type === 'emergency') {
                 title.innerText = "Emergency Numbers";
-                body.innerHTML = `<p style="font-size:0.85rem;">• Police: 10111<br>• Medical Ambulance: 10177<br>• Host Direct: +27 82 821 5975</p>`;
+                body.innerHTML = `<p style="font-size:0.85rem;">• Yzerfontein Armed Response / Security: 022 451 2222<br>• Darling Police Station: 022 492 2314<br>• Medical Ambulance: 10177<br>• Host Direct: +27 82 821 5975</p>`;
                 submitBtn.style.display = "none";
             } else if(type === 'checkout') {
                 title.innerText = "Express Check-Out";
-                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Leaving today? Tap submit to notify host and arrange luggage storage.</p>`;
+                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Leaving today? Tap submit to notify host and arrange key drop-off.</p>`;
             }
 
             modal.style.display = 'flex';
