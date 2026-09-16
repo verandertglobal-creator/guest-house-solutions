@@ -1,336 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Latsky Multimedia | Brand Films, Digital Portals & Social Strategy</title>
-  
-  <!-- Modern Font & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-dark: #0a0d14;
-      --card-bg: rgba(18, 24, 38, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent-cyan: #00f2fe;
-      --accent-blue: #4facfe;
-      --accent-purple: #7f00ff;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --glass-glow: rgba(0, 242, 254, 0.12);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latsky Multimedia | Luxury Hospitality Media & Digital Solutions</title>
+    <!-- Preconnect for speed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #090D16;
+            --bg-card: rgba(18, 24, 38, 0.85);
+            --accent: #D97706;
+            --accent-glow: rgba(217, 119, 6, 0.35);
+            --accent-green: #10B981;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: rgba(255, 255, 255, 0.1);
+            --gradient-gold: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
-    body {
-      background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(79, 172, 254, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 65%, rgba(127, 0, 255, 0.08) 0%, transparent 40%);
-      color: var(--text-main);
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .container {
-      max-width: 1150px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-gradient {
+            background: linear-gradient(135deg, #FFF 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    /* Hero Header */
-    header {
-      padding: 80px 0 40px;
-      text-align: center;
-      position: relative;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
 
-    .brand-tag {
-      display: inline-block;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 12px;
-    }
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; }
+        .logo span { color: var(--accent); }
+        .nav-cta {
+            background: var(--gradient-gold);
+            color: #FFF;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 8px 20px -5px var(--accent-glow);
+            transition: transform 0.2s;
+        }
+        .nav-cta:hover { transform: translateY(-2px); }
 
-    header h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        /* Hero Section */
+        .hero { padding: 3.5rem 0 2.5rem; text-align: center; }
+        .hero-tag {
+            display: inline-block;
+            background: rgba(217, 119, 6, 0.15);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.25rem;
+        }
+        .hero h1 { font-size: 2.5rem; line-height: 1.15; margin-bottom: 1.25rem; }
+        .hero p { max-width: 680px; margin: 0 auto 2rem; font-size: 1rem; color: var(--text-muted); }
 
-    header p {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: 0 auto;
-    }
+        /* Clickable 3 Core Pillars - Cards Grid */
+        .pillars-section { padding: 2rem 0 4rem; }
+        .section-header { text-align: center; margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .section-header p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* Section & Cards */
-    .portfolio-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      padding: 40px 0 80px;
-    }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
 
-    .glass-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 40px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
+        .pillar-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
-    .glass-card:hover {
-      border-color: rgba(0, 242, 254, 0.3);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--glass-glow);
-      transform: translateY(-2px);
-    }
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .card-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0, 242, 254, 0.08);
-      border: 1px solid rgba(0, 242, 254, 0.2);
-      color: var(--accent-cyan);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 6px 14px;
-      border-radius: 30px;
-      margin-bottom: 20px;
-    }
+        .pillar-card-link:hover .pillar-card {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 35px -10px rgba(0,0,0,0.6);
+        }
 
-    .glass-card h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
+        .pillar-card h3 { font-size: 1.35rem; margin-bottom: 0.5rem; }
+        .pillar-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.25rem; line-height: 1.5; }
 
-    .glass-card p.description {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      margin-bottom: 28px;
-    }
+        .pillar-mockup {
+            width: 100%;
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            background: #0B0F19;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* Features List */
-    .feature-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
+        /* Responsive Fast CSS Mockup Shapes */
+        .mockup-phone-frame {
+            width: 95px;
+            height: 165px;
+            background: #1E293B;
+            border: 3px solid #334155;
+            border-radius: 16px;
+            padding: 0.4rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transform: rotate(-4deg);
+            transition: transform 0.3s;
+        }
+        .pillar-card-link:hover .mockup-phone-frame { transform: rotate(0deg) scale(1.04); }
 
-    .feature-list li {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .mock-btn { background: var(--accent); height: 10px; border-radius: 3px; margin-bottom: 6px; }
+        .mock-btn-sm { background: rgba(255,255,255,0.2); height: 6px; border-radius: 2px; margin-bottom: 4px; }
 
-    /* Value Pillars */
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin: 28px 0;
-    }
+        .pillar-photo-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.65);
+            transition: transform 0.4s;
+        }
+        .pillar-card-link:hover .pillar-photo-bg { transform: scale(1.06); }
 
-    .pillar-box {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 20px;
-    }
+        .social-floating-badge {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.7rem;
+            color: #FFF;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
 
-    .pillar-box h3 {
-      font-size: 1.1rem;
-      color: var(--accent-blue);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        .click-indicator {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 0.5rem;
+        }
 
-    .pillar-box p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
+        /* Feature Deep Dive Sections */
+        .feature-deepdive {
+            padding: 4.5rem 0;
+            border-top: 1px solid var(--glass-border);
+        }
 
-    /* Action Buttons Area */
-    .card-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 12px;
-    }
+        .deepdive-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      cursor: pointer;
-    }
+        .deepdive-grid.reverse { direction: rtl; }
+        .deepdive-grid.reverse .deepdive-content { direction: ltr; }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-      color: #040810;
-      font-weight: 700;
-      box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
-    }
+        .deepdive-content h2 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 1rem; }
+        .deepdive-content p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.25rem; line-height: 1.6; }
 
-    .btn-primary:hover {
-      box-shadow: 0 12px 28px rgba(0, 242, 254, 0.4);
-      transform: translateY(-2px);
-    }
+        .benefit-list { list-style: none; margin-bottom: 1.75rem; }
+        .benefit-list li {
+            position: relative;
+            padding-left: 1.6rem;
+            margin-bottom: 0.7rem;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+        .benefit-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: 800;
+        }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
+        .btn-primary {
+            display: inline-block;
+            background: var(--gradient-gold);
+            color: #FFF;
+            padding: 0.85rem 1.75rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            box-shadow: 0 8px 25px -5px var(--accent-glow);
+            transition: all 0.25s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
-    }
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: #FFF;
+            border: 1px solid var(--accent);
+            padding: 0.85rem 1.75rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            transition: all 0.25s;
+        }
+        .btn-secondary:hover { 
+            background: rgba(217, 119, 6, 0.15);
+            transform: translateY(-2px); 
+        }
 
-    /* Sub-Info Box */
-    .info-target {
-      margin-top: 24px;
-      padding: 20px;
-      background: rgba(0, 242, 254, 0.03);
-      border-left: 3px solid var(--accent-cyan);
-      border-radius: 8px;
-      font-size: 0.92rem;
-      color: var(--text-muted);
-    }
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
 
-    @media (max-width: 640px) {
-      header h1 { font-size: 2.1rem; }
-      .glass-card { padding: 24px; }
-      .card-actions { flex-direction: column; }
-      .btn { width: 100%; }
-    }
-  </style>
+        .showcase-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .showcase-img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .stats-overlay-card {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .stat-item h4 { font-size: 1.3rem; color: var(--accent-green); }
+        .stat-item p { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+
+        .experience-badge {
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid var(--accent);
+            padding: 0.85rem 1rem;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+            color: #E2E8F0;
+        }
+
+        /* Integrated Package & Pricing Component */
+        .pricing-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-box h4 { font-size: 1rem; color: var(--accent); margin-bottom: 0.4rem; }
+        .pricing-box p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem; }
+
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 2.5rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 850px) {
+            .hero h1 { font-size: 2rem; }
+            .deepdive-grid, .deepdive-grid.reverse { grid-template-columns: 1fr; gap: 2rem; direction: ltr; }
+            .showcase-img { height: 240px; }
+            .cta-group { flex-direction: column; align-items: stretch; }
+            .cta-group a { text-align: center; }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
     <div class="container">
-      <span class="brand-tag">Latsky Multimedia</span>
-      <h1>Cinematic Media & Digital Portals</h1>
-      <p>Elevating boutique stays, hospitality brands, and commercial experiences across Cape Town and beyond.</p>
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">Latsky <span>Multimedia</span></div>
+            <a href="widget-demo.html" class="nav-cta">Live Guest Portal Demo</a>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="hero-tag">Hospitality Growth Engine</span>
+            <h1>Elevate Guest Experience & <br><span class="text-gradient">Maximize Direct Bookings</span></h1>
+            <p>Combining high-end cinema production, hands-off social media growth, and interactive guest-house portals for luxury West Coast stays.</p>
+        </section>
+
+        <!-- 3 Core Clickable Pillars Overview Grid -->
+        <section class="pillars-section">
+            <div class="section-header">
+                <h2>Our Ecosystem of Growth</h2>
+                <p>Tap any service below to explore full capabilities & pricing</p>
+            </div>
+
+            <div class="pillars-grid">
+                
+                <!-- Pillar 1 Link -->
+                <a href="#portal-section" class="pillar-card-link">
+                    <div class="pillar-card">
+                        <div>
+                            <span style="font-size: 0.7rem; color: var(--accent); font-weight: 700; text-transform: uppercase;">01 / Digital Hospitality</span>
+                            <h3>Interactive Guest Portal</h3>
+                            <p>Eliminate reception bottlenecks with 1-tap gate access, Wi-Fi, breakfast ordering, and local guides directly on guest phones.</p>
+                        </div>
+                        <div class="pillar-mockup">
+                            <div class="mockup-phone-frame">
+                                <div class="mock-btn" style="width: 80%;"></div>
+                                <div class="mock-btn-sm" style="width: 100%;"></div>
+                                <div class="mock-btn-sm" style="width: 60%;"></div>
+                                <div class="mock-btn" style="width: 90%; background: var(--accent-green); margin-top: 10px;"></div>
+                            </div>
+                        </div>
+                        <div class="click-indicator">Explore Portal Capabilities →</div>
+                    </div>
+                </a>
+
+                <!-- Pillar 2 Link -->
+                <a href="#social-section" class="pillar-card-link">
+                    <div class="pillar-card">
+                        <div>
+                            <span style="font-size: 0.7rem; color: var(--accent); font-weight: 700; text-transform: uppercase;">02 / Client Acquisition</span>
+                            <h3>Social Media Management</h3>
+                            <p>High-converting vertical video designed to bypass third-party OTAs (Booking.com/Airbnb) and drive lucrative direct client bookings.</p>
+                        </div>
+                        <div class="pillar-mockup">
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80" class="pillar-photo-bg" loading="lazy" alt="Luxury Property">
+                            <div class="social-floating-badge" style="bottom: 10px; left: 10px;">
+                                🔥 Direct Booking Growth
+                            </div>
+                        </div>
+                        <div class="click-indicator">View Packages & Social Growth →</div>
+                    </div>
+                </a>
+
+                <!-- Pillar 3 Link -->
+                <a href="#production-section" class="pillar-card-link">
+                    <div class="pillar-card">
+                        <div>
+                            <span style="font-size: 0.7rem; color: var(--accent); font-weight: 700; text-transform: uppercase;">03 / Visual Excellence</span>
+                            <h3>World-Class Production</h3>
+                            <p>Broadcast-grade visual storytelling. FPV aerials, architectural photography, and cinematic brand films that showcase your property.</p>
+                        </div>
+                        <div class="pillar-mockup">
+                            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80" class="pillar-photo-bg" loading="lazy" alt="Luxury Villa Architecture">
+                            <div class="social-floating-badge" style="top: 10px; right: 10px; border-color: var(--accent-green);">
+                                🎬 4K Cinema Standard
+                            </div>
+                        </div>
+                        <div class="click-indicator">Explore Film Production →</div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- DEEP DIVE SECTION 1: INTERACTIVE GUEST PORTAL -->
+        <section class="feature-deepdive" id="portal-section">
+            <div class="deepdive-grid">
+                <div class="deepdive-content">
+                    <span class="hero-tag">Automated Concierge</span>
+                    <h2>The Modern Guest House Portal & Guidebook</h2>
+                    <p>Traditional printed guest binders are outdated the second they are printed. Our mobile-first Web App portal requires <strong>no app download</strong> for your guests and runs smoothly on any smartphone device.</p>
+                    
+                    <ul class="benefit-list">
+                        <li><strong>1-Tap Smart Gate Access:</strong> Encrypted remote opening integration.</li>
+                        <li><strong>Instant Wi-Fi & Information:</strong> No more repeated guest calls for passwords.</li>
+                        <li><strong>Live Local Weather & Curated Guidebooks:</strong> Promote top local eateries, wine farms, and coastal activities effortlessly.</li>
+                        <li><strong>Direct Host WhatsApp Channel:</strong> Streamline maintenance and guest requests instantly.</li>
+                    </ul>
+
+                    <a href="widget-demo.html" class="btn-primary">Test Live Interactive Demo</a>
+                </div>
+
+                <div class="showcase-frame">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80" class="showcase-img" loading="lazy" alt="Luxury Guest Check In">
+                    <div class="stats-overlay-card">
+                        <div class="stat-item">
+                            <h4>0%</h4>
+                            <p>App Download Friction</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>24/7</h4>
+                            <p>Automated Concierge</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEEP DIVE SECTION 2: SOCIAL MEDIA MANAGEMENT -->
+        <section class="feature-deepdive" id="social-section">
+            <div class="deepdive-grid reverse">
+                <div class="deepdive-content">
+                    <span class="hero-tag">Organic Direct Growth</span>
+                    <h2>Why Accommodations Need Dedicated Social Management</h2>
+                    <p>Relying solely on Booking.com or Airbnb means giving away 15% to 25% of every booking in commission fees. To build an independent brand, your accommodation needs constant, tailored vertical video content that invokes emotion and travel desire.</p>
+                    
+                    <div class="experience-badge">
+                        "Guests don't just book a room; they book the feeling of being there. We construct high-hook short-form videos that convert passive scrollers into confirmed weekend stays."
+                    </div>
+
+                    <div class="pricing-box">
+                        <h4>Full-Service Social Management Packages</h4>
+                        <p>Includes monthly on-site shoots, professional editing, captioning, hashtag strategies, and consistent automated posting across Instagram Reels, TikTok, and YouTube Shorts.</p>
+                        <span style="font-size: 0.8rem; color: var(--accent-green); font-weight: 700;">Customized tailored plans starting for boutique stays.</span>
+                    </div>
+
+                    <div class="cta-group">
+                        <a href="https://wa.me/27828215975?text=Hi%20Johann,%20I'd%20like%20to%20book%20a%20consultation%20to%20grow%20our%20clientele%20and%20discuss%20social%20management%20pricing." target="_blank" class="btn-primary">Book a Consultation to Grow Your Clientele & Get Seen</a>
+                        <a href="https://wa.me/27828215975?text=Hi%20Johann,%20please%20send%20me%20your%20Social%20Media%20Management%20pricing%20and%20packages%20breakdown." target="_blank" class="btn-secondary">Request Social Media Pricing Sheet</a>
+                    </div>
+                </div>
+
+                <div class="showcase-frame">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=700&q=80" class="showcase-img" loading="lazy" alt="Luxury Resort Social Reach">
+                    <div class="stats-overlay-card">
+                        <div class="stat-item">
+                            <h4>+310%</h4>
+                            <p>Direct Inquiries</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>-20%</h4>
+                            <p>OTA Fees Saved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEEP DIVE SECTION 3: WORLD-CLASS VIDEOGRAPHY -->
+        <section class="feature-deepdive" id="production-section">
+            <div class="deepdive-grid">
+                <div class="deepdive-content">
+                    <span class="hero-tag">Film Industry Standard</span>
+                    <h2>World-Class Videography & Cinematic Photography</h2>
+                    <p>With years of experience directing brand films, international documentaries, and high-end commercial productions, we understand lighting, pacing, and visual storytelling better than standard real-estate photographers.</p>
+
+                    <div class="experience-badge">
+                        Led by filmmaker <strong>Johann Latsky</strong>, bringing narrative film techniques and specialized media production to luxury West Coast stays and boutique hospitality groups.
+                    </div>
+                    
+                    <ul class="benefit-list">
+                        <li><strong>Cinema Grade Equipment:</strong> 4K HDR filming, specialized architectural lenses, and steady gimbal work.</li>
+                        <li><strong>Licensed Drone Operations:</strong> Sweeping landscape visuals detailing proximity to ocean, mountains, and town.</li>
+                        <li><strong>Full Post-Production Mastery:</strong> Professional color grading, sound design, and narrative scripting.</li>
+                    </ul>
+
+                    <a href="https://www.latskymultimedia.co.za" target="_blank" class="btn-primary">View Full Production Portfolio</a>
+                </div>
+
+                <div class="showcase-frame">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=700&q=80" class="showcase-img" loading="lazy" alt="Cinematic Villa Shooting">
+                    <div class="stats-overlay-card">
+                        <div class="stat-item">
+                            <h4>4K HDR</h4>
+                            <p>Cinema Quality</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>100%</h4>
+                            <p>Custom Tailored</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Latsky Multimedia. All Rights Reserved. | <a href="https://www.latskymultimedia.co.za" target="_blank">www.latskymultimedia.co.za</a></p>
+        </footer>
     </div>
-  </header>
-
-  <main class="container portfolio-grid">
-
-    <!-- 1. GUEST HOUSE PORTAL SECTION (BOTH BUTTONS RESTORED) -->
-    <section id="guest-house-portal" class="glass-card">
-      <span class="card-badge">⚡ Interactive Web Application</span>
-      <h2>The Modern Guest House Portal & Guidebook</h2>
-      
-      <p class="description">
-        A location-aware Progressive Web App (PWA) built specifically for boutique guest houses and luxury stays. Streamlines digital check-ins, provides real-time local updates, 7-day weather, and quick utility requests—all without requiring an app store download.
-      </p>
-
-      <ul class="feature-list">
-        <li>⚡ <strong>Automated Check-In:</strong> Keyless entry & digital logger</li>
-        <li>☀️ <strong>Live Updates:</strong> 7-day local weather & event tracking</li>
-        <li>🛎️ <strong>Service Requests:</strong> Housekeeping & breakfast ordering</li>
-        <li>📶 <strong>Quick Access:</strong> One-tap Wi-Fi & emergency contacts</li>
-      </ul>
-
-      <!-- BOTH BUTTONS RESTORED HERE -->
-      <div class="card-actions">
-        <a href="#guest-house-widget" class="btn btn-secondary">
-          ℹ️ View Widget Info & Specs
-        </a>
-        <a href="widget-demo.html" target="_blank" class="btn btn-primary">
-          ⚡ Test Live Interactive Widget
-        </a>
-      </div>
-
-      <!-- Widget Info Spec Anchor -->
-      <div id="guest-house-widget" class="info-target">
-        <strong>Widget Architecture & Integration:</strong> Runs standalone or embedded on guest tablets. Built with offline-first PWA caching, dynamic local weather API integration, and keyless concierge request modules.
-      </div>
-    </section>
-
-    <!-- 2. WHY ACCOMMODATIONS NEED DEDICATED SOCIAL MANAGEMENT SECTION -->
-    <section id="social-management" class="glass-card">
-      <span class="card-badge">🎬 Content Strategy & Management</span>
-      <h2>Why Accommodations Need Dedicated Social Management</h2>
-
-      <p class="description">
-        Guests buy into an experience before they ever book a room. Generic posts don't capture the atmosphere, local charm, or luxury amenities that turn scrollers into paying guests. Dedicated social management handles your visual storytelling, short-form reels, and guest engagement so your calendar stays booked year-round.
-      </p>
-
-      <div class="pillars-grid">
-        <div class="pillar-box">
-          <h3>📸 Visual Storytelling</h3>
-          <p>High-converting reels, interior spotlights, and drone footage showcasing your property's best assets.</p>
-        </div>
-        <div class="pillar-box">
-          <h3>💬 Direct Booking Funnels</h3>
-          <p>Strategic calls-to-action and DM management turning social inquiry traffic directly into web bookings.</p>
-        </div>
-        <div class="pillar-box">
-          <h3>🗓️ Local Atmosphere</h3>
-          <p>Highlighting nearby attractions, seasonal stays, and guest reviews without taking time from daily hosting operations.</p>
-        </div>
-      </div>
-
-      <!-- ACTION BUTTON LINKING TO PRICING PAGE -->
-      <div class="card-actions">
-        <a href="social-media-pricing.html" class="btn btn-primary">
-          📊 View Simple Content Management Pricing
-        </a>
-      </div>
-    </section>
-
-  </main>
 
 </body>
 </html>
