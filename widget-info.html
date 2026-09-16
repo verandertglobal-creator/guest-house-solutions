@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget & Guidebook Specs | Latsky Multimedia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0F172A;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #D97706;
+            --text-light: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: rgba(255, 255, 255, 0.12);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg); color: var(--text-light);
+            line-height: 1.6; padding: 4rem 1.5rem;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1, h2 { font-family: 'Playfair Display', serif; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; text-align: center; }
+        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 3rem; }
+
+        .demo-banner {
+            background: rgba(217, 119, 6, 0.15); border: 1px solid var(--accent);
+            border-radius: 16px; padding: 2rem; text-align: center; margin-bottom: 3rem;
+        }
+        .btn-cta {
+            display: inline-block; padding: 0.8rem 2rem; background: var(--accent);
+            color: #FFF; text-decoration: none; border-radius: 8px; font-weight: 600; margin-top: 1rem;
+        }
+
+        .price-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 16px; padding: 2rem; margin-bottom: 2rem;
+        }
+        .price-card h3 { color: var(--accent); font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .price-tag { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; color: #FFF; }
+        ul { list-style-position: inside; color: #CBD5E1; }
+        li { margin-bottom: 0.5rem; }
+        
+        .nav-back { display: inline-block; margin-bottom: 2rem; color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">← Back to Overview</a>
+        <h1>Guest House Digital Guidebook & Widget Specs</h1>
+        <p class="subtitle">A tailored, once-off interactive portal for your guests—no recurring software lock-ins.</p>
+
+        <!-- Live Demo Highlight Banner -->
+        <div class="demo-banner">
+            <h2>Experience the Widget in Action</h2>
+            <p>Test dynamic weather, live Eskom loadshedding updates, simulated gate triggers, and order forms.</p>
+            <a href="widget-demo.html" target="_blank" class="btn-cta">⚡ Launch Live Interactive Widget Demo</a>
+        </div>
+
+        <!-- Base Setup -->
+        <div class="price-card">
+            <h3>1. Base Digital Guidebook Build</h3>
+            <div class="price-tag">R4,500 <span style="font-size: 0.9rem; font-weight:400; color:var(--text-muted)">(Once-off setup)</span></div>
+            <ul>
+                <li>Branded digital guest guide tailored to your property styling</li>
+                <li>Standard info sections: Wi-Fi credentials, arrival/checkout rules, local recommendations, emergency contacts</li>
+                <li>Progressive Web App (PWA) setup with home screen install prompts</li>
+                <li>Hosted free via GitHub Pages infrastructure</li>
+            </ul>
+        </div>
+
+        <!-- The Widget Bundle -->
+        <div class="price-card">
+            <h3>2. The Interactive Widget Bundle</h3>
+            <div class="price-tag">R2,800 <span style="font-size: 0.9rem; font-weight:400; color:var(--text-muted)">(Once-off flat fee at signup)</span></div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Pick any or all features during setup with no added charge per button:</p>
+            <ul>
+                <li>Food / Breakfast order submission form</li>
+                <li>Housekeeping request trigger button</li>
+                <li>Issue & maintenance report submission</li>
+                <li>Express self check-in / check-out button</li>
+                <li>Live Loadshedding & outage status tracker (Auto-updated)</li>
+                <li>Social media quick links & click-to-WhatsApp link</li>
+            </ul>
+        </div>
+
+        <!-- Bespoke Integrations -->
+        <div class="price-card">
+            <h3>3. Optional Advanced Integrations</h3>
+            <ul>
+                <li><strong>Gate Open Button (Remootio Embed):</strong> R750 setup (+ client hardware purchase ~R2,500–R3,500)</li>
+                <li><strong>WhatsApp Automated Messaging (Make.com API):</strong> R2,500 setup (+ per-message costs passed through)</li>
+            </ul>
+        </div>
+
+        <!-- Ongoing Maintenance -->
+        <div class="price-card">
+            <h3>4. Post-Launch Maintenance Options</h3>
+            <ul>
+                <li><strong>Option A (Ad-Hoc):</strong> R500 flat fee per new button or content edit request</li>
+                <li><strong>Option B (Retainer):</strong> R350/month for ongoing edits, redeploys, and health checks</li>
+                <li><strong>Option C (Self-Service):</strong> R0/month (Client edits content direct via integrated Airtable base)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Guest Portal Demo | Latsky Multimedia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0F172A;
+            --card-bg: rgba(30, 41, 59, 0.75);
+            --accent: #D97706;
+            --accent-green: #10B981;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: rgba(255, 255, 255, 0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            color: var(--text-main);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 1.5rem;
+        }
+
+        .widget-container {
+            width: 100%; max-width: 440px; background: var(--card-bg);
+            backdrop-filter: blur(16px); border: 1px solid var(--border);
+            border-radius: 24px; padding: 2rem 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .header { text-align: center; margin-bottom: 1.5rem; }
+        .header h1 { font-size: 1.4rem; font-weight: 700; color: #FFF; }
+        .header p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .live-status-box {
+            background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border);
+            border-radius: 14px; padding: 1rem; margin-bottom: 1.5rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+        }
+
+        .status-item { display: flex; flex-direction: column; gap: 4px; }
+        .status-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        .status-value { font-size: 0.9rem; font-weight: 600; color: var(--accent-green); }
+
+        .widget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+
+        .widget-btn {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+            border-radius: 14px; padding: 1.2rem 1rem; color: var(--text-main);
+            cursor: pointer; text-align: center; font-size: 0.85rem; font-weight: 600;
+            transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 6px;
+        }
+
+        .widget-btn:hover {
+            background: rgba(217, 119, 6, 0.15); border-color: var(--accent); transform: translateY(-2px);
+        }
+
+        .widget-btn.gate-demo {
+            grid-column: span 2; background: rgba(217, 119, 6, 0.2); border-color: var(--accent);
+        }
+
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            justify-content: center; align-items: center; z-index: 100; padding: 1rem;
+        }
+
+        .modal-content {
+            background: #1E293B; border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.5rem; width: 100%; max-width: 380px;
+        }
+
+        .modal-content input, .modal-content select, .modal-content textarea {
+            width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 8px;
+            border: 1px solid var(--border); background: #0F172A; color: #FFF; font-family: inherit;
+        }
+
+        .btn-submit {
+            width: 100%; padding: 0.8rem; background: var(--accent);
+            border: none; border-radius: 8px; color: #FFF; font-weight: 600; cursor: pointer;
+        }
+
+        .footer-note { text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem; }
+        .footer-note a { color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="widget-container">
+        <div class="header">
+            <h1>Seaside Villa Guest Portal</h1>
+            <p>Welcome! Tap below for instant services & details.</p>
+        </div>
+
+        <div class="live-status-box">
+            <div class="status-item">
+                <span class="status-label">Power Status</span>
+                <span class="status-value" id="power-status">Checking Eskom...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Local Weather</span>
+                <span class="status-value" id="weather-status">Loading weather...</span>
+            </div>
+        </div>
+
+        <div class="widget-grid">
+            <button class="widget-btn gate-demo" onclick="triggerGateDemo()">🔒 Open Gate (Remootio Demo)</button>
+            <button class="widget-btn" onclick="openModal('wifi')">📶 Wi-Fi Access</button>
+            <button class="widget-btn" onclick="openModal('breakfast')">🍳 Breakfast Order</button>
+            <button class="widget-btn" onclick="openModal('housekeeping')">🧹 Housekeeping</button>
+            <button class="widget-btn" onclick="openModal('issue')">🛠 Report Issue</button>
+            <button class="widget-btn" onclick="openModal('checkout')">🔑 Self Check-Out</button>
+            <button class="widget-btn" onclick="openWhatsApp()">💬 Host WhatsApp</button>
+        </div>
+
+        <div class="footer-note">
+            Powered by <a href="https://www.latskymultimedia.co.za" target="_blank">Latsky Multimedia</a>
+        </div>
+    </div>
+
+    <div class="modal" id="actionModal">
+        <div class="modal-content">
+            <h3 id="modalTitle" style="margin-bottom:1rem;">Request Service</h3>
+            <div id="modalBody"></div>
+            <button class="btn-submit" onclick="submitRequest()">Submit Request</button>
+            <button style="background:transparent; border:none; color:var(--text-muted); width:100%; margin-top:0.5rem; cursor:pointer;" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Fetch Live Cape Town Weather & Loadshedding status automatically
+        async function fetchLiveEvents() {
+            try {
+                const weatherRes = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-33.9249&longitude=18.4241&current_weather=true');
+                const weatherData = await weatherRes.json();
+                const temp = Math.round(weatherData.current_weather.temperature);
+                document.getElementById('weather-status').innerText = `${temp}°C Cape Town`;
+            } catch (e) {
+                document.getElementById('weather-status').innerText = '19°C Sunny';
+            }
+
+            try {
+                const powerRes = await fetch('https://eskom-calendar-api.shuttleapp.rs/outages/capetown');
+                if(powerRes.ok) {
+                    const powerData = await powerRes.json();
+                    document.getElementById('power-status').innerText = powerData.stage ? `Stage ${powerData.stage}` : 'Stage 0 (Active)';
+                } else {
+                    document.getElementById('power-status').innerText = 'Stage 0 (No Outage)';
+                }
+            } catch (e) {
+                document.getElementById('power-status').innerText = 'Stage 0 (No Outage)';
+            }
+        }
+
+        fetchLiveEvents();
+        setInterval(fetchLiveEvents, 60000);
+
+        function triggerGateDemo() {
+            alert("Remootio Gate Automation Demo:\nIn production, this sends an encrypted token to trigger access instantly.");
+        }
+
+        function openWhatsApp() {
+            window.open("https://wa.me/?text=Hi%20Johann,%20I%20am%20testing%20the%20Guest%20House%20Widget%20Demo!", "_blank");
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById('actionModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+
+            if(type === 'wifi') {
+                title.innerText = "Wi-Fi Details";
+                body.innerHTML = "<p style='margin-bottom:1rem; color:var(--text-muted)'>Network: <strong>Seaside_Guest_5G</strong><br>Password: <strong>Welcome2026!</strong></p>";
+            } else if(type === 'breakfast') {
+                title.innerText = "Order Breakfast";
+                body.innerHTML = `<select id="field1"><option>Full English Breakfast</option><option>Continental Platter</option><option>Vegan Bowl</option></select><input type="time" value="08:30">`;
+            } else if(type === 'housekeeping') {
+                title.innerText = "Housekeeping Request";
+                body.innerHTML = `<select id="field1"><option>Fresh Towels</option><option>Full Room Clean</option><option>Extra Pillows</option></select>`;
+            } else if(type === 'issue') {
+                title.innerText = "Report Maintenance Issue";
+                body.innerHTML = `<textarea placeholder="Describe the issue..."></textarea>`;
+            } else if(type === 'checkout') {
+                title.innerText = "Express Self Check-Out";
+                body.innerHTML = `<p style='margin-bottom:1rem; color:var(--text-muted)'>Confirming check-out will notify management.</p>`;
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('actionModal').style.display = 'none'; }
+        function submitRequest() {
+            alert("Request submitted successfully! In production, this instantly triggers a WhatsApp message to management.");
+            closeModal();
+        }
+    </script>
+</body>
+</html>
