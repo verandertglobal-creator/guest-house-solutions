@@ -49,7 +49,7 @@
             border-radius: 18px;
             overflow: hidden;
             margin-bottom: 1.25rem;
-            padding: 2.5rem 1rem 1.5rem;
+            padding: 2rem 1rem 1.5rem;
             text-align: center;
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.92) 100%),
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
@@ -81,14 +81,22 @@
             letter-spacing: 0.5px;
         }
 
+        .guest-welcome-subtitle {
+            font-size: 0.95rem;
+            color: #FDBA74;
+            font-weight: 600;
+            margin-top: 0.3rem;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+        }
+
         .hero-banner p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #E2E8F0;
             text-shadow: 0 1px 5px rgba(0,0,0,0.8);
             margin-top: 0.2rem;
         }
 
-        /* Standard Event Banner Image */
+        /* Event Detail Banner Image */
         .event-detail-banner {
             width: 100%;
             height: 160px;
@@ -263,14 +271,15 @@
         <div class="hero-banner">
             <span class="badge">West Coast Luxury</span>
             <h1>Yzerfontein Haven</h1>
-            <p>Welcome to Yzerfontein! Your West Coast digital portal.</p>
+            <div class="guest-welcome-subtitle" id="bannerWelcomeText">Welcome, Guest!</div>
+            <p>Your West Coast digital portal.</p>
         </div>
 
         <!-- Check-In Banner -->
         <div class="checkin-bar" id="checkinBanner">
             <div class="checkin-info">
-                <h4 id="checkinTitle">Log Your Arrival</h4>
-                <p id="checkinTime">Tap to record check-in time</p>
+                <h4 id="checkinTitle">Check-In Arrival Log</h4>
+                <p id="checkinTime">Tap to record arrival</p>
             </div>
             <button class="btn-checkin" id="checkinBtn" onclick="processCheckIn()">Check In</button>
         </div>
@@ -349,6 +358,41 @@
 
     <script>
         const HOST_PHONE = "0027828215975";
+        let guestName = "Guest";
+        let roomNumber = "Your Room";
+
+        // URL Parameter Processing
+        function parseURLParameters() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('guest')) guestName = params.get('guest');
+            if (params.has('room')) roomNumber = params.get('room');
+
+            // Update UI elements with parsed parameters
+            document.getElementById('bannerWelcomeText').innerText = `Welcome, ${guestName}! (${roomNumber})`;
+            document.getElementById('checkinTitle').innerText = `${guestName} • ${roomNumber}`;
+
+            // Trigger Welcome Modal Pop-up on load
+            showWelcomeModal(guestName, roomNumber);
+        }
+
+        function showWelcomeModal(guest, room) {
+            const modal = document.getElementById('actionModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            const submitBtn = document.getElementById('modalSubmitBtn');
+
+            title.innerText = `👋 Welcome to Yzerfontein Haven!`;
+            submitBtn.style.display = "none";
+
+            body.innerHTML = `
+                <div style="text-align:center; padding:0.5rem 0;">
+                    <p style="font-size:1.05rem; font-weight:600; color:#FDBA74; margin-bottom:0.6rem;">Hello ${guest}!</p>
+                    <p style="font-size:0.88rem; color:var(--text-main); line-height:1.5;">We are delighted to host you in <strong>${room}</strong>. Use this digital portal to open gates, request services, check local weather, or message us directly.</p>
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+        }
 
         // Yzerfontein Specific Attractions & Events Dataset
         const eventData = [
@@ -428,20 +472,16 @@
             const timeString = now.toLocaleDateString() + " at " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             localStorage.setItem('checkinTimestamp', timeString);
             updateCheckInUI(timeString);
-            alert("Check-in logged for " + timeString);
+            alert(`Check-in logged for ${guestName} (${roomNumber}) at ${timeString}`);
         }
 
         function updateCheckInUI(timestamp) {
             if(timestamp) {
-                document.getElementById('checkinTitle').innerText = "Checked In";
-                document.getElementById('checkinTime').innerText = timestamp;
+                document.getElementById('checkinTime').innerText = `Checked In: ${timestamp}`;
                 document.getElementById('checkinBtn').innerText = "Logged";
                 document.getElementById('checkinBtn').style.background = "#64748B";
             }
         }
-
-        const savedCheckIn = localStorage.getItem('checkinTimestamp');
-        if(savedCheckIn) updateCheckInUI(savedCheckIn);
 
         // Fetch Live Weather specifically for Yzerfontein Coordinates (-33.3426, 18.1611)
         async function load7DayWeather() {
@@ -481,7 +521,6 @@
                 document.getElementById('weatherList').innerHTML = "<p>Weather data currently unavailable.</p>";
             }
         }
-        load7DayWeather();
 
         function load7DayEvents() {
             const today = new Date();
@@ -503,7 +542,6 @@
             });
             document.getElementById('eventsList').innerHTML = html;
         }
-        load7DayEvents();
 
         function openEventDetail(eventId) {
             const ev = eventData.find(e => e.id === eventId);
@@ -530,11 +568,11 @@
         }
 
         function openWhatsApp() {
-            window.open(`https://wa.me/${HOST_PHONE}?text=Hi%20Johann,%20I%20am%20a%20guest%20staying%20in%20Yzerfontein.`, "_blank");
+            window.open(`https://wa.me/${HOST_PHONE}?text=Hi%20Johann,%20I%20am%20${encodeURIComponent(guestName)}%20staying%20in%20${encodeURIComponent(roomNumber)}.`, "_blank");
         }
 
         function openGateDemo() {
-            alert("Remootio Gate Command Sent!\nIn production, this opens the physical gate via encrypted webhook.");
+            alert(`Remootio Gate Command Sent for ${guestName} (${roomNumber})!`);
         }
 
         function openModal(type) {
@@ -563,32 +601,32 @@
                 `;
                 submitBtn.style.display = "none";
             } else if(type === 'breakfast') {
-                title.innerText = "Order Breakfast";
+                title.innerText = `Order Breakfast (${roomNumber})`;
                 body.innerHTML = `
                     <select id="field1"><option>West Coast Full Breakfast</option><option>Continental Platter</option><option>Vegan Breakfast Bowl</option></select>
                     <input type="time" value="08:30">
                 `;
             } else if(type === 'housekeeping') {
-                title.innerText = "Housekeeping";
+                title.innerText = `Housekeeping Request (${roomNumber})`;
                 body.innerHTML = `<select><option>Fresh Towels</option><option>Full Room Cleaning</option><option>Extra Pillows</option></select>`;
             } else if(type === 'loadshedding') {
                 title.innerText = "Power & Backup Schedule";
                 body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Yzerfontein Substation: <strong>Grid Active (Stage 0)</strong><br>Inverter Backup active for Wi-Fi and Lights.</p>`;
                 submitBtn.style.display = "none";
             } else if(type === 'issue') {
-                title.innerText = "Report Maintenance Issue";
-                body.innerHTML = `<textarea placeholder="Describe the issue (e.g. tap leaking, aircon cold)..."></textarea>`;
+                title.innerText = `Report Issue (${roomNumber})`;
+                body.innerHTML = `<textarea placeholder="Describe the issue..."></textarea>`;
             } else if(type === 'manual') {
                 title.innerText = "House Manual";
                 body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted);">• Aircon: Use remote on wall bracket.<br>• Coffee Machine: Press top button twice for espresso.<br>• Trash: Bin located near side gate.</p>`;
                 submitBtn.style.display = "none";
             } else if(type === 'emergency') {
                 title.innerText = "Emergency Numbers";
-                body.innerHTML = `<p style="font-size:0.85rem;">• Yzerfontein Armed Response / Security: 022 451 2222<br>• Darling Police Station: 022 492 2314<br>• Medical Ambulance: 10177<br>• Host Direct: +27 82 821 5975</p>`;
+                body.innerHTML = `<p style="font-size:0.85rem;">• Yzerfontein Armed Response: 022 451 2222<br>• Darling Police Station: 022 492 2314<br>• Medical Ambulance: 10177<br>• Host Direct: +27 82 821 5975</p>`;
                 submitBtn.style.display = "none";
             } else if(type === 'checkout') {
-                title.innerText = "Express Check-Out";
-                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Leaving today? Tap submit to notify host and arrange key drop-off.</p>`;
+                title.innerText = `Express Check-Out (${roomNumber})`;
+                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Leaving today, ${guestName}? Tap submit to notify host and arrange key drop-off.</p>`;
             }
 
             modal.style.display = 'flex';
@@ -602,9 +640,19 @@
         function closeModal() { document.getElementById('actionModal').style.display = 'none'; }
         
         function submitRequest() {
-            alert("Request submitted! Sent directly to management via WhatsApp API.");
+            alert(`Request submitted for ${guestName} (${roomNumber})!`);
             closeModal();
         }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            parseURLParameters();
+            load7DayWeather();
+            load7DayEvents();
+            
+            const savedCheckIn = localStorage.getItem('checkinTimestamp');
+            if(savedCheckIn) updateCheckInUI(savedCheckIn);
+        });
     </script>
 </body>
 </html>
