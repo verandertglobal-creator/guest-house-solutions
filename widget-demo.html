@@ -41,6 +41,7 @@
             padding: 1.5rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             overflow: hidden;
+            position: relative;
         }
 
         /* Hero Accommodation Banner */
@@ -201,6 +202,57 @@
         .widget-btn.full-width { grid-column: span 2; }
         .widget-btn.highlight { background: rgba(217, 119, 6, 0.2); border-color: var(--accent); }
 
+        /* Food Quantity Counter Controls */
+        .food-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0F172A;
+            padding: 0.75rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 0.6rem;
+        }
+
+        .food-item-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .qty-btn {
+            background: rgba(217, 119, 6, 0.2);
+            border: 1px solid var(--accent);
+            color: #FFF;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .qty-btn:hover {
+            background: var(--accent);
+        }
+
+        .qty-val {
+            font-size: 0.9rem;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
         /* Event & Weather Cards */
         .list-card {
             background: rgba(15, 23, 42, 0.5);
@@ -231,16 +283,30 @@
             font-weight: 700;
         }
 
-        /* Modal Popup */
+        /* Modal Overlay & Card */
         .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-            justify-content: center; align-items: center; z-index: 1000; padding: 1rem;
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(15, 23, 42, 0.65); 
+            backdrop-filter: blur(8px);
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000; 
+            padding: 1rem;
         }
 
         .modal-content {
-            background: #1E293B; border: 1px solid var(--border);
-            border-radius: 20px; padding: 1.5rem; width: 100%; max-width: 400px;
+            background: #1E293B; 
+            border: 1px solid var(--border);
+            border-radius: 20px; 
+            padding: 1.5rem; 
+            width: 100%; 
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
         }
 
         .modal-content input, .modal-content select, .modal-content textarea {
@@ -342,11 +408,11 @@
         </div>
 
         <div class="footer-note">
-            Powered by <a href="https://www.latskymultimedia.co.za" target="_blank">Latsky Multimedia</a>
+            Powered by <a href="https://www.latskymultimedia.co.za" target="_blank" cite="topic-1">Latsky Multimedia</a>
         </div>
     </div>
 
-    <!-- Generic Interactive Modal -->
+    <!-- Generic Interactive Modal Overlay -->
     <div class="modal" id="actionModal">
         <div class="modal-content">
             <h3 id="modalTitle" style="margin-bottom:1rem;">Service Request</h3>
@@ -357,22 +423,26 @@
     </div>
 
     <script>
-        const HOST_PHONE = "0027828215975";
+        const HOST_PHONE = "27828215975";
         let guestName = "Guest";
         let roomNumber = "Your Room";
+        let currentModalType = "";
 
-        // URL Parameter Processing
+        // Food menu quantities object tracker
+        let foodQuantities = {
+            "West Coast Full Breakfast": 0,
+            "Continental Platter": 0,
+            "Vegan Breakfast Bowl": 0,
+            "Fresh Juice / Coffee": 0
+        };
+
         function parseURLParameters() {
             const params = new URLSearchParams(window.location.search);
             if (params.has('guest')) guestName = params.get('guest');
             if (params.has('room')) roomNumber = params.get('room');
 
-            // Update UI elements with parsed parameters
             document.getElementById('bannerWelcomeText').innerText = `Welcome, ${guestName}! (${roomNumber})`;
             document.getElementById('checkinTitle').innerText = `${guestName} • ${roomNumber}`;
-
-            // Trigger Welcome Modal Pop-up on load
-            showWelcomeModal(guestName, roomNumber);
         }
 
         function showWelcomeModal(guest, room) {
@@ -387,14 +457,13 @@
             body.innerHTML = `
                 <div style="text-align:center; padding:0.5rem 0;">
                     <p style="font-size:1.05rem; font-weight:600; color:#FDBA74; margin-bottom:0.6rem;">Hello ${guest}!</p>
-                    <p style="font-size:0.88rem; color:var(--text-main); line-height:1.5;">We are delighted to host you in <strong>${room}</strong>. Use this digital portal to open gates, request services, check local weather, or message us directly.</p>
+                    <p style="font-size:0.88rem; color:var(--text-main); line-height:1.5;">We are delighted to host you in <strong>${room}</strong>. Use this digital portal to open gates, order breakfast, check local weather, or message us directly.</p>
                 </div>
             `;
 
             modal.style.display = 'flex';
         }
 
-        // Yzerfontein Specific Attractions & Events Dataset
         const eventData = [
             {
                 id: 0,
@@ -472,7 +541,9 @@
             const timeString = now.toLocaleDateString() + " at " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             localStorage.setItem('checkinTimestamp', timeString);
             updateCheckInUI(timeString);
-            alert(`Check-in logged for ${guestName} (${roomNumber}) at ${timeString}`);
+
+            const msg = `*Check-In Recorded*\nGuest: ${guestName}\nRoom: ${roomNumber}\nTime: ${timeString}`;
+            window.open(`https://wa.me/${HOST_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function updateCheckInUI(timestamp) {
@@ -483,7 +554,6 @@
             }
         }
 
-        // Fetch Live Weather specifically for Yzerfontein Coordinates (-33.3426, 18.1611)
         async function load7DayWeather() {
             try {
                 const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-33.3426&longitude=18.1611&daily=weathercode,temperature_2m_max,temperature_2m_min,windspeed_10m_max&timezone=Africa%2FJohannesburg');
@@ -567,15 +637,24 @@
             modal.style.display = 'flex';
         }
 
+        function updateFoodQty(itemName, delta) {
+            foodQuantities[itemName] = Math.max(0, (foodQuantities[itemName] || 0) + delta);
+            const el = document.getElementById(`qty-${itemName.replace(/\s+/g, '')}`);
+            if (el) el.innerText = foodQuantities[itemName];
+        }
+
         function openWhatsApp() {
-            window.open(`https://wa.me/${HOST_PHONE}?text=Hi%20Johann,%20I%20am%20${encodeURIComponent(guestName)}%20staying%20in%20${encodeURIComponent(roomNumber)}.`, "_blank");
+            const msg = `Hi! I am ${guestName} staying in ${roomNumber}. I have a general question regarding my stay.`;
+            window.open(`https://wa.me/${HOST_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
         }
 
         function openGateDemo() {
-            alert(`Remootio Gate Command Sent for ${guestName} (${roomNumber})!`);
+            const msg = `*Gate Access Request*\nGuest: ${guestName}\nRoom: ${roomNumber}\nAction: Open Main Gate`;
+            window.open(`https://wa.me/${HOST_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
         }
 
         function openModal(type) {
+            currentModalType = type;
             const modal = document.getElementById('actionModal');
             const title = document.getElementById('modalTitle');
             const body = document.getElementById('modalBody');
@@ -602,20 +681,48 @@
                 submitBtn.style.display = "none";
             } else if(type === 'breakfast') {
                 title.innerText = `Order Breakfast (${roomNumber})`;
-                body.innerHTML = `
-                    <select id="field1"><option>West Coast Full Breakfast</option><option>Continental Platter</option><option>Vegan Breakfast Bowl</option></select>
-                    <input type="time" value="08:30">
+                let foodHTML = `<p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.8rem;">Select item quantities below:</p>`;
+                
+                Object.keys(foodQuantities).forEach(item => {
+                    const cleanId = `qty-${item.replace(/\s+/g, '')}`;
+                    foodHTML += `
+                        <div class="food-item-row">
+                            <span class="food-item-label">${item}</span>
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="updateFoodQty('${item}', -1)">-</button>
+                                <span class="qty-val" id="${cleanId}">${foodQuantities[item]}</span>
+                                <button class="qty-btn" onclick="updateFoodQty('${item}', 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                foodHTML += `
+                    <label style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem; display:block;">Preferred Delivery Time:</label>
+                    <input type="time" id="bfTime" value="08:30">
                 `;
+                body.innerHTML = foodHTML;
             } else if(type === 'housekeeping') {
                 title.innerText = `Housekeeping Request (${roomNumber})`;
-                body.innerHTML = `<select><option>Fresh Towels</option><option>Full Room Cleaning</option><option>Extra Pillows</option></select>`;
+                body.innerHTML = `
+                    <label style="font-size:0.8rem; color:var(--text-muted);">Service Required:</label>
+                    <select id="hkOption">
+                        <option>Fresh Towels</option>
+                        <option>Full Room Cleaning</option>
+                        <option>Extra Pillows & Linen</option>
+                        <option>Refill Coffee & Tea Station</option>
+                    </select>
+                `;
             } else if(type === 'loadshedding') {
                 title.innerText = "Power & Backup Schedule";
                 body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Yzerfontein Substation: <strong>Grid Active (Stage 0)</strong><br>Inverter Backup active for Wi-Fi and Lights.</p>`;
                 submitBtn.style.display = "none";
             } else if(type === 'issue') {
                 title.innerText = `Report Issue (${roomNumber})`;
-                body.innerHTML = `<textarea placeholder="Describe the issue..."></textarea>`;
+                body.innerHTML = `
+                    <label style="font-size:0.8rem; color:var(--text-muted);">Describe the issue:</label>
+                    <textarea id="issueText" rows="3" placeholder="e.g., Hot water issue, aircon remote battery..."></textarea>
+                `;
             } else if(type === 'manual') {
                 title.innerText = "House Manual";
                 body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted);">• Aircon: Use remote on wall bracket.<br>• Coffee Machine: Press top button twice for espresso.<br>• Trash: Bin located near side gate.</p>`;
@@ -626,7 +733,7 @@
                 submitBtn.style.display = "none";
             } else if(type === 'checkout') {
                 title.innerText = `Express Check-Out (${roomNumber})`;
-                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Leaving today, ${guestName}? Tap submit to notify host and arrange key drop-off.</p>`;
+                body.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Ready to depart, ${guestName}? Tap submit below to notify management on WhatsApp.</p>`;
             }
 
             modal.style.display = 'flex';
@@ -640,18 +747,53 @@
         function closeModal() { document.getElementById('actionModal').style.display = 'none'; }
         
         function submitRequest() {
-            alert(`Request submitted for ${guestName} (${roomNumber})!`);
+            let message = "";
+
+            if (currentModalType === 'breakfast') {
+                const time = document.getElementById('bfTime').value;
+                let selectedItems = [];
+                Object.keys(foodQuantities).forEach(item => {
+                    if (foodQuantities[item] > 0) {
+                        selectedItems.push(`${foodQuantities[item]}x ${item}`);
+                    }
+                });
+
+                if (selectedItems.length === 0) {
+                    alert("Please select at least one item quantity using the + button.");
+                    return;
+                }
+
+                message = `*Breakfast Order*\nGuest: ${guestName}\nRoom: ${roomNumber}\nItems:\n- ${selectedItems.join('\n- ')}\nTime: ${time}`;
+            } else if (currentModalType === 'housekeeping') {
+                const opt = document.getElementById('hkOption').value;
+                message = `*Housekeeping Request*\nGuest: ${guestName}\nRoom: ${roomNumber}\nRequest: ${opt}`;
+            } else if (currentModalType === 'issue') {
+                const issue = document.getElementById('issueText').value;
+                message = `*Maintenance Issue Reported*\nGuest: ${guestName}\nRoom: ${roomNumber}\nDetails: ${issue}`;
+            } else if (currentModalType === 'checkout') {
+                message = `*Express Check-Out Notification*\nGuest: ${guestName}\nRoom: ${roomNumber}\nStatus: Keys dropped / Ready to check out`;
+            }
+
+            if (message) {
+                window.open(`https://wa.me/${HOST_PHONE}?text=${encodeURIComponent(message)}`, '_blank');
+            }
             closeModal();
         }
 
-        // Initialize on load
+        // Initialize on DOM Ready
         window.addEventListener('DOMContentLoaded', () => {
+            // Render Widget Content First
             parseURLParameters();
             load7DayWeather();
             load7DayEvents();
             
             const savedCheckIn = localStorage.getItem('checkinTimestamp');
             if(savedCheckIn) updateCheckInUI(savedCheckIn);
+
+            // Overlay Welcome Popup Over Fully Rendered Widget
+            setTimeout(() => {
+                showWelcomeModal(guestName, roomNumber);
+            }, 150);
         });
     </script>
 </body>
