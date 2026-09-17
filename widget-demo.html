@@ -305,7 +305,9 @@
             border-radius: 20px; 
             padding: 1.5rem; 
             width: 100%; 
-            max-width: 400px;
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
         }
 
@@ -428,12 +430,15 @@
         let roomNumber = "Your Room";
         let currentModalType = "";
 
-        // Food menu quantities object tracker
+        // Separated Coffee and Fresh Juices menu tracker
         let foodQuantities = {
             "West Coast Full Breakfast": 0,
             "Continental Platter": 0,
             "Vegan Breakfast Bowl": 0,
-            "Fresh Juice / Coffee": 0
+            "Fresh Brewed Coffee": 0,
+            "Fresh Orange Juice": 0,
+            "Fresh Mango Juice": 0,
+            "Fresh Apple Juice": 0
         };
 
         function parseURLParameters() {
